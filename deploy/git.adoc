@@ -1,0 +1,38 @@
+== Деплой PHP проекта с GIt
+
+Данная инструкция составлена согласнно  link:/https://docs.github.com/ru/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent?platform=linux[инструкции] github по деплою при помощи SSH ключа. Данный способ является предпочительным.
+
+1. Подключиться к серверу по SSH
+2. Создать пользователя git 
+**__sudo adduser git__**
+3. Создаем директория для репозитория
+**sudo mkdir /var/www/test-app-site**
+4. Заменим владельца каталога на пользователя git
+**sudo chown git:git /var/www/test-app-site**
+5. Переключаемся на пользователя git. Далее все действия делаем под пользователем git
+**su -l git**
+6. Создаем SSH ключа
+**ssh-keygen -t ed25519 -C "chesnyakov@ya.ru"**
+7. Добавляем ключ в ssh-agent. Проверяем доступность ключа командой
+**ssh-add ~/.ssh/id_ed25519**
+8. Копирум ключ в буфер обмена можно командой pbcopy или через редактор nano окрыть файл ключа
+**pbcopy < ~/.ssh/id_ed25519.pub**
+9. На сайте github в настройках проекта (settings)  переходим в раздел Deploy keys.
+10. Добавляем наш публичный ключ нажав кнопку **Add deploy key**
+11. Переходим в папку с проектом
+**cd /var/www/test-app-site**
+12. Задаем имя пользователя
+**git config --global user.name "Server"**
+13. Задаем адреса электронной почты для фиксаций в GIT
+**git config --global user.email "chesnyakov@ya.ru"**
+14.  Добавление удаленного репозитория (если он не был ранее добавлен)
+**git clone  git@github.com:Jaco-Team/test-app-site.git**
+15. Проверяем работуgit
+**git pull**
+16. Настраиваем автоматический деплой через крон
+**crontab -e**
+17. Добавляем строчку
+* * * * * cd /var/www/test-app-site; git pull >> /home/git/git_log.txt
+18. Закрываем файл с сохранением.
+19. Деплой настроин, логи можно посмотреть в файле /home/git/git_log.txt
+

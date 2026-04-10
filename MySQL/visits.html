@@ -1,0 +1,175 @@
+<!--
+title: Таблица visits
+description: 
+published: true
+date: 2025-07-29T12:58:34.479Z
+tags: 
+editor: ckeditor
+dateCreated: 2025-07-29T12:58:30.510Z
+-->
+
+<figure class="table">
+  <table>
+    <thead>
+      <tr>
+        <th><strong>Поле</strong></th>
+        <th><strong>Тип (MySQL)</strong></th>
+        <th><strong>Пример</strong></th>
+        <th><strong>Что хранит</strong></th>
+        <th><strong>Вариации / правила</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>id</td>
+        <td>BIGINT UNSIGNED (PK, AUTO_INCREMENT)</td>
+        <td>102394</td>
+        <td>Технический авто-ID</td>
+        <td>Уникален, инкремент.</td>
+      </tr>
+      <tr>
+        <td>vid</td>
+        <td>CHAR(36)</td>
+        <td>ecd5e649-24bc-485b-89e3-f651277d812f</td>
+        <td>ID посетителя (cookie на 1 год)</td>
+        <td>UUID v4. Один и тот же пользователь на одном браузере/устройстве — один vid.</td>
+      </tr>
+      <tr>
+        <td>sid</td>
+        <td>CHAR(36) (UNIQUE)</td>
+        <td>7fac3dec-691b-4ec1-b10c-80635f7d0a90</td>
+        <td>ID сессии</td>
+        <td>UUID v4. Уникален на каждую сессию (новая — после 30 мин простоя).</td>
+      </tr>
+      <tr>
+        <td>started_at</td>
+        <td>DATETIME (UTC)</td>
+        <td>2025-07-29 10:47:15</td>
+        <td>Момент старта сессии</td>
+        <td>Всегда UTC. На отчётах сдвигайте в локальную тайм-зону.</td>
+      </tr>
+      <tr>
+        <td>landing_path</td>
+        <td>VARCHAR(2048)</td>
+        <td>/samara?utm_source=google</td>
+        <td>Посадочная страница (путь + query)</td>
+        <td>Храните <strong>путь</strong> с query, без протокола/домена. Для мультидоменов есть host.</td>
+      </tr>
+      <tr>
+        <td>referrer</td>
+        <td>VARCHAR(2048) nullable</td>
+        <td>https://google.com/</td>
+        <td>Полный реферер из заголовка</td>
+        <td>Может быть NULL (direct/закладка/ручной ввод/скрыт браузером). Внутренние переходы (ваш же домен) не считаются источником.</td>
+      </tr>
+      <tr>
+        <td>source</td>
+        <td>VARCHAR(255)</td>
+        <td>google</td>
+        <td>Источник трафика (канал/сайт)</td>
+        <td>Варианты: google, yandex, bing, facebook, vk, instagram, tiktok, хост реферера (например, l.instagram.com), direct (если нет реферера и UTM), ваш же домен при внутреннем переходе мы <strong>нормализуем</strong> в direct. При UTM берём utm_source.</td>
+      </tr>
+      <tr>
+        <td>medium</td>
+        <td>VARCHAR(64)</td>
+        <td>cpc</td>
+        <td>Тип канала (medium)</td>
+        <td>Часто используемые: cpc, organic, referral, social, email, display, partner, none (для direct). При UTM берём utm_medium. Для поисковых рефереров — organic.</td>
+      </tr>
+      <tr>
+        <td>campaign</td>
+        <td>VARCHAR(255) nullable</td>
+        <td>brand_search_ru</td>
+        <td>Кампания</td>
+        <td>Из utm_campaign, иначе NULL.</td>
+      </tr>
+      <tr>
+        <td>term</td>
+        <td>VARCHAR(255) nullable</td>
+        <td>роллы заказ</td>
+        <td>Ключевое слово</td>
+        <td>Из utm_term, иначе NULL.</td>
+      </tr>
+      <tr>
+        <td>content</td>
+        <td>VARCHAR(255) nullable</td>
+        <td>a_b_test_banner</td>
+        <td>Вариант креатива</td>
+        <td>Из utm_content, иначе NULL.</td>
+      </tr>
+      <tr>
+        <td>classifier</td>
+        <td>VARCHAR(64)</td>
+        <td>utm</td>
+        <td>Как мы классифицировали источник</td>
+        <td>Возможные значения: utm (если есть utm_*), gclid, yclid, ref-organic (поисковый реферер), referral (внешний сайт), direct (нет реферера/UTM), internal (внутренний переход — обычно сводим к direct).</td>
+      </tr>
+      <tr>
+        <td>utm</td>
+        <td>JSON (или TEXT) nullable</td>
+        <td>{"utm_source":"google","utm_medium":"cpc"}</td>
+        <td>Сырые UTM-метки/кликиды</td>
+        <td>Объект со всеми найденными метками: utm_source, utm_medium, utm_campaign, utm_term, utm_content, а также gclid, yclid. Может быть пустым {} или NULL.</td>
+      </tr>
+      <tr>
+        <td>host</td>
+        <td>VARCHAR(255)</td>
+        <td>jacofood.ru</td>
+        <td>На какой хост пришёл визит</td>
+        <td>Полезно для мультидоменов/субдоменов.</td>
+      </tr>
+      <tr>
+        <td>ua</td>
+        <td>VARCHAR(1024)</td>
+        <td>Mozilla/5.0 (Macintosh; …)</td>
+        <td>User-Agent</td>
+        <td>Для отчётов по устройствам/браузерам.</td>
+      </tr>
+      <tr>
+        <td>ip</td>
+        <td>VARCHAR(64)</td>
+        <td>128.204.71.163</td>
+        <td>IP посетителя</td>
+        <td>Берётся из X-Forwarded-For (первый в списке). Может быть IPv6 (::1 локально).</td>
+      </tr>
+      <tr>
+        <td>created_at</td>
+        <td>TIMESTAMP</td>
+        <td>2025-07-29 10:47:15</td>
+        <td>Дата вставки</td>
+        <td>Автоматически.</td>
+      </tr>
+      <tr>
+        <td>updated_at</td>
+        <td>TIMESTAMP</td>
+        <td>2025-07-29 10:47:15</td>
+        <td>Дата обновления</td>
+        <td>При UPSERT по sid может обновляться.</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2><strong>Нормализация источников (как заполняются source/medium/classifier)</strong></h2>
+<p><strong>Есть UTM</strong> →</p>
+<p>source = utm_source (если пусто — можно ставить (utm)),</p>
+<p>medium = utm_medium (если пусто — (utm)),</p>
+<p>campaign/term/content — из соответствующих utm,</p>
+<p>classifier = 'utm'.</p>
+<p>&nbsp;</p>
+<p><strong>Нет UTM, но есть gclid</strong> →</p>
+<p>source = 'google', medium = 'cpc', classifier = 'gclid'.</p>
+<p>&nbsp;</p>
+<p><strong>Нет UTM, но есть yclid</strong> →</p>
+<p>source = 'yandex', medium = 'cpc', classifier = 'yclid'.</p>
+<p>&nbsp;</p>
+<p><strong>Нет UTM/кликидов, но есть реферер</strong> →</p>
+<p>Если домен содержит google.*/yandex.*/bing.* → source = google|yandex|bing, medium = 'organic', classifier = 'ref-organic'.</p>
+<p>Любой другой внешний домен → source = &lt;ref_host&gt;, medium = 'referral', classifier = 'referral'.</p>
+<p>&nbsp;</p>
+<p><strong>Нет реферера (или он внутренний)</strong> →</p>
+<p>source = 'direct', medium = 'none', classifier = 'direct' <i>(для внутреннего в коде можно ставить internal, но по отчётам это обычно «direct»)</i>.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

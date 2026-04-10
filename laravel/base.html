@@ -1,0 +1,107 @@
+<!--
+title: Основы
+description: 
+published: true
+date: 2024-11-29T14:16:26.498Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-07-04T06:01:26.514Z
+-->
+
+<p><strong>Синхронизация Базы Данных</strong></p>
+<blockquote>
+  <p>php artisan migrate</p>
+</blockquote>
+<p><strong>Запуск проекта</strong></p>
+<blockquote>
+  <p>php artisan serve</p>
+</blockquote>
+<p><strong>Создание файла через консоль</strong></p>
+<blockquote>
+  <p>php artisan make</p>
+  <p><strong># создание контроллера UserController</strong><br>php artisan make:controller UserController</p>
+  <p><strong># создание контроллера UserController в папке Auth</strong><br>php artisan make:controller Auth/UserController</p>
+  <p><strong># создание модели UserModel</strong><br>php artisan make:model UserModel</p>
+  <p><strong># создание модели UserModel в папке Auth</strong><br>php artisan make:model Auth/UserModel</p>
+</blockquote>
+<p><strong>Первый запуск проекта</strong></p>
+<blockquote>
+  <p><strong># клонируем репозиторий</strong><br>git clone example-app</p>
+  <p>cd example-app</p>
+  <p><strong># устанавливаем php зависимости</strong><br>composer install</p>
+  <p><strong># устанавливаем js зависимости</strong><br>npm install &amp;&amp; npm run build</p>
+  <p><strong># синхронизируем базу данных</strong><br>php artisan migrate</p>
+  <p><strong># запускаем ларавел</strong><br>php artisan serve</p>
+</blockquote>
+<p><i><strong>Route</strong></i></p>
+<blockquote>
+  <p><strong># для запросов с фронта удаленного сервера</strong><br>/routes/api</p>
+  <p><strong># выполнение задачи ( метода контроллера / модели ) из консоли</strong><br>/routes/console&nbsp;</p>
+  <p><strong># для запросов с фронта Laravel</strong><br>/routes/web&nbsp;</p>
+</blockquote>
+<p><i><strong>/routes/console</strong></i></p>
+<blockquote>
+  <p><strong># импортируем нужный контроллер</strong><br>use \App\Http\Controllers\Controller_sms;</p>
+  <p><strong># регистрируем команду test_send_sms</strong><br>Artisan::command('test_send_sms', function () {<br>&nbsp; &nbsp; $sms = new Controller_sms();<br><br>&nbsp; &nbsp; $sms-&gt;send_sms('89879340391', 'Hello world!');<br>});</p>
+  <p><strong># в консоле запускаем команду</strong><br>php artisan test_send_sms</p>
+</blockquote>
+<p><i><strong>/routes/api</strong></i></p>
+<blockquote>
+  <p><strong># импортируем нужный контроллер</strong><br>use App\Http\Controllers\Controller_concenter;</p>
+  <p><strong># регистрируем адреса api, не web страниц</strong><br># Route::any(path, [controller, method]);<br>Route::prefix('concenter')-&gt;group(function () {<br>&nbsp; &nbsp; Route::any('/get_all', [Controller_concenter::class, 'get_all']); // route - /concenter/get_all<br>&nbsp; &nbsp; Route::any('/get_orders', [Controller_concenter::class, 'get_orders']); // route - /concenter/get_orders<br>&nbsp; &nbsp; Route::any('/get_order_new', [Controller_concenter::class, 'get_order_new']); // route - /concenter/get_order_new<br>&nbsp; &nbsp; Route::any('/fake_user', [Controller_concenter::class, 'fake_user']); // route - /concenter/fake_user<br>&nbsp; &nbsp; Route::any('/close_order_center', [Controller_concenter::class, 'close_order_center']); // route - /concenter/close_order_center<br>});</p>
+</blockquote>
+<p><strong>Контроллеры</strong></p>
+<blockquote>
+  <p><strong># путь к контроллерам</strong><br>/project/app/Http/Controllers</p>
+</blockquote>
+<blockquote>
+  <p><strong># использование POST / GET / … / Middleware параметров</strong><br>use Illuminate\Http\Request;<br>public function method(Request $request){}</p>
+</blockquote>
+<blockquote>
+  <p><strong># Request</strong><br>$request-&gt;data - POST / GET / … параметры<br>$request-&gt;module_info - информация о текущем модуле<br>$request-&gt;login - номер телефона и id пользователя ( кто отправил запрос )<br>$request-&gt;access - список дополнительных разрешений для модуля</p>
+</blockquote>
+<blockquote>
+  <p><strong># /project/app/Http/Resources</strong><br><strong># обертывает результат в data</strong><br>use App\Http\Resources\GlobalResource;<br>public function method(Request $request): GlobalResource<br>{<br>&nbsp; &nbsp; return new GlobalResource([<br>&nbsp; &nbsp; &nbsp; &nbsp; 'city_id' =&gt; 1<br>&nbsp; &nbsp; ]);<br>}<br># data[ city_id = 1 ] - с использованием Resources<br># city_id = 1 - без использования Resources</p>
+</blockquote>
+<blockquote>
+  <p><strong># базовые функции ( кастомные )</strong><br>use App\Http\Controllers\Api\Helper;</p>
+</blockquote>
+<p><strong>Модели</strong></p>
+<blockquote>
+  <p><strong># путь к моделям</strong><br>/project/app/Models</p>
+  <p><strong># SQL запросы</strong><br>use Illuminate\Support\Facades\DB;</p>
+  <p><strong># получить объект</strong><br>DB::selectOne</p>
+  <p><strong># получить массив</strong><br>DB::select</p>
+  <p><strong># обновление записи</strong><br>DB::update</p>
+  <p><strong># вставка записи</strong><br>DB::insert</p>
+  <p><strong># получить id последней вставленной записи</strong><br>DB::getPdo()-&gt;lastInsertId()</p>
+</blockquote>
+<blockquote>
+  <p><strong># примеры</strong><br>return DB::select(<i>/** @lang text */ </i>'<br>&nbsp; &nbsp; SELECT<br>&nbsp; &nbsp; &nbsp; &nbsp; *<br>&nbsp; &nbsp; FROM<br>&nbsp; &nbsp; &nbsp; &nbsp; base.`table`<br>');</p>
+  <p><br>return DB::select(<i>/** @lang text */ </i>'<br>&nbsp; &nbsp; SELECT<br>&nbsp; &nbsp; &nbsp; &nbsp; *<br>&nbsp; &nbsp; FROM<br>&nbsp; &nbsp; &nbsp; &nbsp; base.`table`<br>&nbsp; &nbsp; &nbsp;WHERE<br>&nbsp; &nbsp; &nbsp; &nbsp; `id`="'.$id.'"<br>');</p>
+  <p><br>return DB::select(<i>/** @lang text */ </i>'<br>&nbsp; &nbsp; SELECT<br>&nbsp; &nbsp; &nbsp; &nbsp; *<br>&nbsp; &nbsp; FROM<br>&nbsp; &nbsp; &nbsp; &nbsp; base.`table`<br>&nbsp; &nbsp; &nbsp;WHERE<br>&nbsp; &nbsp; &nbsp; &nbsp; `id`= :id<br>‘, [ ’id' =&gt; $id ]);</p>
+</blockquote>
+<blockquote>
+  <p><strong># Telescope</strong> предоставляет информацию о запросах, поступающих в ваше приложение, исключениях, записях журнала, запросах к базе данных, поставленных в очередь заданиях, почте, уведомлениях, операциях с кэшем, запланированных задачах, дампах переменных и многом другом.<br>https://apichef.jacochef.ru/telescope<br>localhost:8000/telescope</p>
+</blockquote>
+<p><strong>Cron (планировщик в Laravel) задачи по расписанию</strong></p>
+<blockquote>
+  <p>Основная статья &nbsp;здесь <a href="https://laravel.su/docs/11.x/scheduling">https://laravel.su/docs/11.x/scheduling</a></p>
+  <p>В целом, алгоритм такой: на сервере в crontab ОДИН раз прописываем:</p>
+  <pre><code class="language-plaintext">* * * * * cd /path-to-your-project &amp;&amp; php artisan schedule:run &gt;&gt; /dev/null 2&gt;&amp;1</code></pre>
+  <p>Остальное уже настраивается в <i><strong>/routes/console. </strong>Там доступны через встроенные в Laravel функции вызова по расписанию, с условиями, с передачей параметров, с постановкой в очередь, команды системы вроде exec и т.д. Очень гибкая система, поддерживающая множество разных вариантов.</i></p>
+  <p><i>Пример вызова метода send_user</i>_push путём передачи в консоль соответствующей команды через Artisan каждые 30 минут с 8 до 20 часов по Самарскому времени<i>:</i></p>
+  <pre><code class="language-php">use Illuminate\Support\Facades\Schedule;
+//рассылка пушей в приложении для клиентов
+Artisan::command('send_user_push', function () {
+   $firebase = new Firebase();
+   $firebase-&gt;send_user_push();
+});
+Schedule::command('send_user_push')
+   -&gt;everyThirtyMinutes()
+   -&gt;timezone('Europe/Samara')
+   -&gt;between('08:00', '20:00');</code></pre>
+  <p>Через Artisan::command можно задать возможность вызова функции через терминал. Но в приведённом выше примере можно из без этого, работать будет. Причём, <code>Artisan::command( some_code )→hourly();</code> тоже работающий вариант.</p>
+  <p>Список работ со следующим выполнением можно посмотреть в терминале через команду <code>php artisan schedule:list</code></p>
+  <p>На сервере для планировщика (крона) созданы папки <code>app/Models/Crone</code> для моделей и <code>app/Http/Controllers/Crone</code> для контроллеров</p>
+</blockquote>

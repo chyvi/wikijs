@@ -1,0 +1,74 @@
+<!--
+title: Деплой с GIT
+description: 
+published: true
+date: 2024-11-23T18:47:07.570Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-11-18T12:35:55.940Z
+-->
+
+<p>Данная инструкция составлена согласно материалам <a href="https://docs.github.com/ru/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?tool=cli">github </a>и статье по установке на <a href="https://translated.turbopages.org/proxy_u/en-ru.ru.972042f4-673b2bdc-594f6230-74722d776562/https/www.geeksforgeeks.org/how-to-setup-git-server-on-ubuntu/">Ubuntu</a>. Данный способ является предпочтительным.</p>
+<p>1. Подключиться к серверу по SSH</p>
+<p>2. Создать пользователя git</p>
+<blockquote>
+  <p>sudo adduser git</p>
+</blockquote>
+<p>3. Создаем директория для репозитория</p>
+<blockquote>
+  <p>sudo mkdir /var/www/test-app-site</p>
+</blockquote>
+<p>4. Заменим владельца каталога на пользователя git</p>
+<blockquote>
+  <p>sudo chown git:git /var/www/test-app-site</p>
+</blockquote>
+<p>5. Переключаемся на пользователя git. Далее все действия делаем под пользователем git</p>
+<blockquote>
+  <p>su -l git</p>
+</blockquote>
+<p>6. Создаем SSH ключ</p>
+<blockquote>
+  <p>ssh-keygen -t ed25519 -C "chesnyakov@ya.ru"</p>
+</blockquote>
+<p>7. Добавляем ключ в ssh-agent. Проверяем доступность ключа командой</p>
+<blockquote>
+  <p>ssh-add ~/.ssh/id_ed25519</p>
+</blockquote>
+<p>8. Копирум ключ в буфер обмена можно командой pbcopy или через редактор nano окрыть файл ключа</p>
+<blockquote>
+  <p>pbcopy &lt; ~/.ssh/id_ed25519.pub</p>
+</blockquote>
+<p>9. На сайте github в настройках проекта (settings) &nbsp;переходим в раздел <a href="https://github.com/Jaco-Team/test-app-site/settings/keys">Deploy keys</a>.</p>
+<p>10. Добавляем наш публичный ключ нажав кнопку <strong>Add deploy key</strong></p>
+<p>11. Переходим в папку с проектом</p>
+<blockquote>
+  <p>cd /var/www/test-app-site</p>
+</blockquote>
+<p>12. Задаем имя пользователя</p>
+<blockquote>
+  <p>git config --global user.name "Server"</p>
+</blockquote>
+<p>13. Задаем адреса электронной почты для фиксаций в GIT</p>
+<blockquote>
+  <p>git config --global user.email "chesnyakov@ya.ru"</p>
+</blockquote>
+<p>14. &nbsp;Добавление удаленного репозитория (если он не был ранее добавлен)</p>
+<blockquote>
+  <p>git clone &nbsp;git@github.com:Jaco-Team/test-app-site.git</p>
+</blockquote>
+<p>15. Проверяем работу git</p>
+<blockquote>
+  <p>git pull</p>
+</blockquote>
+<p>16. Настраиваем автоматический деплой через крон</p>
+<blockquote>
+  <p>crontab -e</p>
+</blockquote>
+<p>17. Добавляем строчку</p>
+<blockquote>
+  <p>* * * * * cd /var/www/test-app-site; git pull &gt;&gt; /home/git/git_log.txt</p>
+</blockquote>
+<p>18. Закрываем файл с сохранением.</p>
+<p>19. Деплой настроен, логи можно посмотреть в файле /home/git/git_log.txt</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

@@ -1,0 +1,92 @@
+<!--
+title: Установка Wiki.js
+description: Описание новое страницы
+published: true
+date: 2024-12-02T10:09:01.117Z
+tags: важное, php, js, react
+editor: ckeditor
+dateCreated: 2024-06-03T21:00:37.593Z
+-->
+
+<p>Установка Wiki.js</p>
+<p>Установка без Docker</p>
+<p><a href="https://arny.ru/linux/ustanovka-wiki-js/">https://arny.ru/linux/ustanovka-wiki-js/</a></p>
+<p><strong>PostgreSQL</strong></p>
+<p>andy@wiki:~$ sudo -s</p>
+<p># apt install postgresql <i>-&nbsp;установка</i></p>
+<p># pg_isready <i>- проверка установки, должно написать что принимает подключения</i></p>
+<p><i>/var/run/postgresql:5432 - accepting connections</i></p>
+<p>&nbsp;</p>
+<p># sudo su - postgres <i>-&nbsp;переключаемся&nbsp;на&nbsp;пользователя postgres</i></p>
+<p>&nbsp;</p>
+<p>postgres@isec-wiki:~$ psql <i>- входим в режим настройки</i></p>
+<p>&nbsp;</p>
+<p>postgres=# create user wiki_db_adm with password 'LyDfsJVMR9G';</p>
+<p><i>CREATE ROLE</i></p>
+<p>postgres=# create database wiki_db_mos_1;</p>
+<p><i>CREATE DATABASE</i></p>
+<p>postgres=# grant all privileges on database wiki_db_mos_1 to wiki_db_adm;</p>
+<p><i>GRANT</i></p>
+<p>postgres=# \q</p>
+<p>&nbsp;</p>
+<p>postgres@wiki:~$ exit</p>
+<p><i>logout</i></p>
+<h6>Node.js</h6>
+<p>apt install -y nodejs</p>
+<h6>Wiki.js</h6>
+<p># wget https://github.com/Requarks/wiki/releases/latest/download/wiki-js.tar.gz</p>
+<p># mkdir /opt/wiki</p>
+<p># tar xzf wiki-js.tar.gz -C /opt/wiki</p>
+<p># cd /opt/wiki</p>
+<p># mv config.sample.yml config.yml</p>
+<p># vim config.yml</p>
+<p>&nbsp;</p>
+<p><strong>Для запуска сервера</strong></p>
+<p>node server</p>
+<p>Запуск&nbsp;как&nbsp;сервис</p>
+<p># groupadd --system wiki</p>
+<p># useradd -s /sbin/nologin --system -g wiki wiki</p>
+<p># cd /etc/systemd/system</p>
+<p># vim wiki.service</p>
+<p><i>[Unit]</i></p>
+<p><i>Description=Wiki.js</i></p>
+<p><i>After=network.target</i></p>
+<p>&nbsp;</p>
+<p><i>[Service]</i></p>
+<p><i>Type=simple</i></p>
+<p><i>ExecStart=/usr/bin/node server</i></p>
+<p><i>Restart=always</i></p>
+<p><i>User=wiki</i></p>
+<p><i>Environment=NODE_ENV=production</i></p>
+<p><i>WorkingDirectory=/opt/wiki</i></p>
+<p>&nbsp;</p>
+<p><i>[Install]</i></p>
+<p><i>WantedBy=multi-user.targe</i></p>
+<p>&nbsp;</p>
+<p># chown -R wiki:wiki /opt/wiki</p>
+<p>&nbsp;</p>
+<p># systemctl daemon-reload</p>
+<p># systemctl start wiki</p>
+<p># systemctl enable wiki</p>
+<p>&nbsp;</p>
+<p><i>Created symlink /etc/systemd/system/multi-user.target.wants/wiki.service → /etc/systemd/system/wiki.service.</i></p>
+<p>&nbsp;</p>
+<p># systemctl status wiki</p>
+<p>&nbsp;</p>
+<h6>Траблшутинг&nbsp;сервиса</h6>
+<p># cat /var/log/syslog | grep wiki</p>
+<p>&nbsp;</p>
+<p>дать лишенцу временно доступ в консоль:</p>
+<p># passwd wiki -&nbsp;задаём&nbsp;пароль</p>
+<p># usermod wiki -s /bin/bash</p>
+<p>Логинимся:</p>
+<p><i>Could not chdir to home directory /home/wiki: No such file or directory</i></p>
+<p>wiki@wiki:/$ cd opt wiki ; node server</p>
+<p>&nbsp;</p>
+<p><a href="https://arny.ru/linux/ustanovka-wiki-js/?ysclid=lwt9dcv4eu476991008">https://arny.ru/linux/ustanovka-wiki-js/?ysclid=lwt9dcv4eu476991008</a></p>
+<p>Исправление ошибки</p>
+<p># curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash - &amp;&amp;\</p>
+<p># sudo apt-get install -y nodejs</p>
+<p>&nbsp;curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash - &amp;&amp;\</p>
+<p># sudo apt-get install -y nodej</p>
+<p>&nbsp;</p>

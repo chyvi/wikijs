@@ -1,0 +1,166 @@
+<!--
+title: API документация
+description: Как генерировать и редактировать api-документацию
+published: true
+date: 2025-02-06T14:08:07.262Z
+tags: api, swagger, l5-swagger, openapi, laravel
+editor: ckeditor
+dateCreated: 2025-02-05T12:54:50.973Z
+-->
+
+<p>Используется модуль L5-Swagger, на момент обращения (05/02/25) он поддерживает версию Laravel c 7.x по 11.x. и OpenApi 3.0.x В целом по OpenApi примеров можно много найти, но по L5-Swagger аннотации документация скудная. Приветствуется дополнять данную статью примерами для разных заковыристых запросов и ответов))</p>
+<p>Работает следующим образом: мы ручками прописываем аннотации по году, жмём генерацию в терминале, модуль генерирует json-файл с описанием запросов и рендерит его в браузере по дефолту по пути project/api/documentation. Json-файл можно поправить руками, если разбираетесь в синтаксисе, и он отобразится в браузере, но любая последующая генерация уберёт все такие изменения. Синтаксис аннотаций не сложный, но требует аккуратности и внимательности. Если всё норм прописать, то запросы и ответы в браузере отлично работают через модуль. В целом рекомендую использовать <a href="https://www.postman.com/">Postman </a>в дополнение ко всему</p>
+<h3><strong>Полезные ссылки (для некоторых нужен VPN)</strong></h3>
+<ol>
+  <li><a href="https://github.com/DarkaOnLine/L5-Swagger/">L5-Swagger - проект на GitHub, доступен гайд по установке и первоначальной настройке</a></li>
+  <li><a href="https://github.com/DarkaOnLine/L5-Swagger/tree/master/tests/storage/annotations/OpenApi">Пример документирования в OpenApi от автора L5-Swagger</a></li>
+  <li><a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md">Спецификация OpenApi версии 3.0.0, рядом лежат более новые минорные версии и более старые</a></li>
+  <li>Живой пример <a href="https://api.apps.epo.org/documentation/swagger-ui/index.html">раз</a>, <a href="https://api.marsello.com/api-docs/index.html">два</a>, <a href="https://my.lers.ru/api/swagger/index.html">три</a>, можно легко найти в гугле по запросу “<a href="https://www.google.com/search?q=swagger+api&amp;sca_esv=744faba34f407743&amp;rlz=1C1SQJL_ruRU822RU822&amp;sxsrf=AHTn8zpCmNe9BmGhzi-DgTH-CIztBUjGxg:1738759710828&amp;ei=Hl6jZ_qbMonnxc8Py-LD0Q4&amp;sqi=2&amp;start=10&amp;sa=N&amp;sstk=Af40H4VpohDCM4rWlkir4GIDpwgJpNIffv-nHsK2bAy70ocD1GXwBi5gXyCSxR-_tMkqKHofXFOIPNSoeLpdMtIydLZSCLGLHtQXLw&amp;ved=2ahUKEwj6oqfXyKyLAxWJc_EDHUvxMOoQ8tMDegQICBAE&amp;biw=1366&amp;bih=607&amp;dpr=1">swagger api</a>”, начиная со второй страницы. К сожалению, без аннотаций L5-Swagger</li>
+  <li><a href="https://zircote.github.io/swagger-php/guide/cookbook.html">Поваренная книга от Zircote</a> (Swagger-PHP), прям наши аннотации, разные случаи. В целом там много полезного</li>
+  <li><a href="https://www.youtube.com/watch?v=E_pkNUYmpb0">Гайд на русском языке</a>, неплохо всё разжевал - установка, примеры, авторизация (у нас другой способ)</li>
+</ol>
+<h3>Установка</h3>
+<p>Устанавливаем через composer. Далее вбиваем команду <code>$ php artisan vendor:publish --provider "L5Swagger\L5SwaggerServiceProvider"</code> . Если в проекте аннотаций нет, то команда <code>$ php artisan l5-swagger:generate</code> выдаст ошибку об отсутствии необходимых аннотаций.</p>
+<h3>Настройка и синтаксис</h3>
+<p>Есть два пути:&nbsp;</p>
+<ul>
+  <li>прописывать все аннотации по месту применения, то есть прям в контроллерах, классах и методах. Это удобно, но приводит к километровым комментариям в коде;</li>
+  <li>дублировать необходимые контроллеры, классы и методы в отдельной папке (без кода, только названия) <strong>app/Http/Controllers/Swagger</strong>. Папку можно использовать любую, название Swagger было выбрано для осмысленности наименования. Рабочий код так не тронут, всё в одном месте. Недостаток - нужно следить за соответствием аннотации и рабочего кода, если код будет меняться (названия методов, принимаемые параметры и т.д.)</li>
+</ul>
+<p>В нашем случае используется второй способ. Там создаём основной сваггеровский контроллер с базовой аннотацией. Вся аннотация заключается в начальные /** и конечные */, как в примере ниже:</p>
+<pre><code class="language-php">/**
+ * @OA\Info(
+ *      title="Jacochef API",
+ *      version="1.0.0"
+ *  ),
+ * @OA\PathItem (
+ *      path="/api/"
+ *  ),
+ */</code></pre>
+<p>@OA\Info - справочная информация, которая отображается на странице документации. В title и version можно указать любой произвольный текст. @OA\PathItem содержит path путь к api. Табуляция и отступы произвольные, как удобно, можно всё в одну строку записать. Но внимательно с запятыми, они обязательно должны стоять после скобок, при перечислении параметров и т.д.</p>
+<p>В config/l5-swagger.php описываются основные настройки. В целом всё понятно по комментам, остановлюсь на некоторых моментах:</p>
+<ol>
+  <li>В ‘documentations’ =&gt; [ ‘default' =&gt; [ ‘routes’ … ],] прописан путь api/documentation - это путь, по которому доступна наша документация в браузере. Можно поменять на любой другой. Рядом есть title, названия генерируемого файла json и т.д.</li>
+  <li>Авторизация securitySchemes. Хорошо работает с jwt, но у нас доступ через apiKey (свой токен узнайте при авторизации через браузер в консоли разработчика). ‘Type’ =&gt; ‘apiKey’, ‘description’ произвольное, ‘name’ =&gt; ‘login’, ‘in’ =&gt; ‘query’. Это наши настройки. Так же выбрана опция persist_authorization в значение true, чтобы в браузере при перезагрузке страницы не разлогиниваться (по дефолту false).</li>
+</ol>
+<p>Всё, можно выполнить <code>$ php artisan l5-swagger:generate</code> и проверять в браузере работу</p>
+<p>&nbsp;</p>
+<h3>Как работать, примеры</h3>
+<p>Есть GET, POST, PUT, DELETE, PATCH запросы. Запросы с параметрами и без. Если предусмотрено несколько видов ответов, то желательно их перечислять, по типу 200 OK, 401 отсутствия авторизации, 500 внутренней ошибки сервера и т.д. Если ответ придёт не документированный, то в браузере так и будет написано. Если запрос требуется закрыть авторизацией, то это нужно прописать аннотацией security с ссылкой на нашу схему:</p>
+<pre><code class="language-php">*    @OA\Response(
+*          response=401,
+*          description="Unauthorized",
+*    ),
+*    @OA\Response(
+*         response=500,
+*         description="Internal Server Error",
+*     ),
+*    security={
+*             {"jaco_security": {}}
+*    }</code></pre>
+<p>Запрос, закрытый авторизацией, будет помечен в браузере значком замочка. Открытый серого цвета, если мы не авторизованы, и закрытый чёрного цвета после авторизации.</p>
+<p>Параметры запроса описываются в @OA\Parameter(). Если нужно что-то отправить на сервер, то надо описать @OA\RequestBody(). Описать нужно таким образом, чтобы синтаксис данных (массива, например), выглядели точно так же, как в реальных условиях - сервер примет то, что мы описали и пришлёт ответ. Если данные отправляются с формы, то можно указать это в mediaType, например:</p>
+<pre><code class="language-php">*    @OA\RequestBody (
+*        @OA\MediaType(
+*            mediaType="multipart/form-data",
+*            @OA\Schema(
+*                @OA\Property(property="data", type="object",
+*                    @OA\Property(property="id", type="integer", example="96"),
+*                ),
+*            ),
+*        ),
+*    ),</code></pre>
+<p>@OA\Schema позволяет описать произвольный массив данных.</p>
+<p>@OA\Response обязателен, по сути, ради этого мы и делаем всю работу здесь. Нужно описать аннотацию таким образом, чтобы данные (массив и т.д.), приходящие в ответ от сервера, выглядели так же, как мы описали в аннотации.</p>
+<p>В @OA\Property в property указывается наименование поля (можно оставить пустым “” или же вовсе не указывать), тип type (integer, string, date и т.д. для данных и object, array для вложенных массивов и т.д.). Можно здесь указать example, можно не указывать, можно example прописать отдельно, как удобней, см. примеры, поваренную книгу и т.д. Если type указан как object, то внутрь @OA\Property можно вложить @OA\Property ещё раз. Уровень вложенности может быть любой. Если указали array, то нужно прописать @OA\Items, внутри которого уже будут @OA\Property и т.д. У @OA\Property массив идёт с фигурными скобками {}, у @OA\Items с квадратными []. Массив можно делать как ассоциативный, так и нет.</p>
+<p>Пример Response с отдельным example:</p>
+<pre><code class="language-php">*      @OA\Response(
+*          response=200,
+*          description="OK",
+*          @OA\JsonContent(
+*               @OA\Property (property="", type="array", @OA\Items(
+*                   @OA\Property(property="id", type="integer"),
+*                   @OA\Property(property="name", type="string"),
+*                   @OA\Property(property="categories_id", type="integer"),
+*                   @OA\Property(property="created_at", type="date"),
+*                   @OA\Property(property="updated_at", type="date"),
+*                   @OA\Property(property="delete", type="integer"),
+*               )),
+*               example={{
+*                   {
+*                       "id": 1,
+*                       "name": "Children",
+*                       "categories_id": 1,
+*                       "created_at": "1980-01-01",
+*                       "updated_at": null,
+*                       "delete": 0,
+*                   }
+*               }}
+*          ),
+*      ),</code></pre>
+<p>Массив будет выглядеть так:</p>
+<pre><code class="language-plaintext">[
+  [
+    {
+      "id": 1,
+      "name": "Children",
+      "categories_id": 1,
+      "created_at": "1980-01-01",
+      "updated_at": null,
+      "delete": 0
+    }
+  ]
+]</code></pre>
+<p>Примеры Patch и Delete запросов. В Patch отдаётся id, в обоих применяется аутентификация <strong>bearerAuth:</strong></p>
+<pre><code class="language-php">* @OA\Patch(
+ *       path="/api/categories/{id}",
+ *       summary="Обновление",
+ *       tags={"Categories"},
+ *       security={{ "bearerAuth": {} }},
+ *       @OA\Parameter (
+ *          description="ID категории",
+ *          in="path",
+ *          name="category",
+ *          required=true,
+ *          example=1,
+ *      ),
+ *      @OA\RequestBody (
+ *          @OA\JsonContent (
+ *              allOf={
+ *                  @OA\Schema (
+ *                      @OA\Property(property="id", type="integer", example=1),
+ *                      @OA\Property(property="name", type="string", example="Children"),
+ *                  )
+ *              }
+ *          ),
+ *      ),
+ *       @OA\Response(
+ *           response=200,
+ *           description="OK",
+ *           @OA\JsonContent(
+ *                @OA\Property (property="", type="array", @OA\Items(
+ *                    @OA\Property(property="id", type="integer", example=1),
+ *                    @OA\Property(property="name", type="string", example="Children"),
+ *                    @OA\Property(property="categories_id", type="integer", example="1"),
+ *                    @OA\Property(property="created_at", type="date", example="1980-01-01"),
+ *                    @OA\Property(property="updated_at", type="date", example=null),
+ *                    @OA\Property(property="delete", type="integer", example=0),
+ *                )),
+ *           ),
+ *       ),
+ *   ),
+ *
+ * @OA\Delete(
+ *       path="/api/categories/",
+ *       summary="Удаление",
+ *       tags={"Categories"},
+ *       security={{ "bearerAuth": {} }},
+ *       @OA\Response(
+ *           response=200,
+ *           description="OK",
+ *           @OA\JsonContent(
+ *                @OA\Property (property="result", type="object", example=true),
+ *           ),
+ *       ),
+ *   ),</code></pre>
+<p>Для описания массива ещё применяются allOf={} и oneOf={}</p>

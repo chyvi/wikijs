@@ -1,0 +1,1410 @@
+<!--
+title: Cron-задания
+description: Список задач, расписание, статус, описание, зависимости запуска
+published: true
+date: 2025-12-15T11:30:36.612Z
+tags: cron
+editor: ckeditor
+dateCreated: 2025-07-23T15:10:17.361Z
+-->
+
+<h1>Таблица кронов по https://jacochef.ru/</h1>
+<figure class="table" style="width:1024px;">
+  <table>
+    <thead>
+      <tr>
+        <th>Скрипт</th>
+        <th>Cron в jacoeda или запуск в Laravel</th>
+        <th>Описание</th>
+        <th>Примечание</th>
+        <th>Статус</th>
+        <th>Скрипт в Laravel (при наличии)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="height:100.8pt;width:48pt;">crone_cook_queue.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">очередь заказов в json файл</td>
+        <td style="width:48pt;">Был * * * * * через&nbsp;wget</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:86.4pt;width:48pt;">crone_check_date_graph.php</td>
+        <td style="width:48pt;">0 5 * * 1</td>
+        <td style="width:48pt;">проверка на наличие в графике работы</td>
+        <td style="width:48pt;">wget, добавлен &nbsp;--no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">crone_check_sklad_online.php</td>
+        <td style="width:48pt;">0 5 * * *</td>
+        <td style="width:48pt;">подсчет склада онлайн</td>
+        <td style="width:48pt;">wget, добавлен &nbsp;--no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_test_12.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">test</td>
+        <td style="width:48pt;">Был */5 * * * * через&nbsp;wget.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:198.0pt;width:48pt;">crone_check_pays.php</td>
+        <td style="width:48pt;">*/1 * * * *</td>
+        <td style="width:48pt;">проверка онлайн оплаты</td>
+        <td style="width:48pt;">wget, добавлен &nbsp;--no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_birthday_3.php</td>
+        <td style="width:48pt;">*/3 * * * *</td>
+        <td style="width:48pt;">промокод в день рождения</td>
+        <td style="width:48pt;">wget, добавлен &nbsp;--no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">crone_check_orders_time.php</td>
+        <td style="width:48pt;">0 23 * * *</td>
+        <td style="width:48pt;">пересчет ошибок</td>
+        <td style="width:48pt;">wget, добавлен &nbsp;--no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">crone_start_app_works_7.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">ценовка в конце дня</td>
+        <td style="width:48pt;">Был 0 23 * * *, wget, добавлен &nbsp;--no-check-certificate. Теперь в Laravel. dailyAt('23:00')-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/Crons_start_app_work/Cron_start_app_works_7.php</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_full_stat_per_day.php</td>
+        <td style="width:48pt;">0 2 * * *</td>
+        <td style="width:48pt;">статистика по выручке</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:115.2pt;width:48pt;">crone_ras_pos_per_day.php</td>
+        <td style="width:48pt;">0 2 * * *</td>
+        <td style="width:48pt;">полный расход заготовок и расчет проданных позиций</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:86.4pt;width:48pt;">crone_check_stat_per_hours.php</td>
+        <td style="width:48pt;">0 2 * * *</td>
+        <td style="width:48pt;">нагрузка на кухню по часам за каждый день</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:54.0pt;width:48pt;">crone_check_stat_err.php</td>
+        <td style="width:48pt;">*/15 * * * *</td>
+        <td style="width:48pt;">статистика кафе / ошибки</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:54.0pt;width:48pt;">crone_check_lv_cafe.php</td>
+        <td style="width:48pt;">10 0 * * *</td>
+        <td style="width:48pt;">подсчет уровня кафе</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_check_del_user.php</td>
+        <td style="width:48pt;">0 0 * * *</td>
+        <td style="width:48pt;">увольнение сотрудника</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_check_rev_res.php</td>
+        <td style="width:48pt;">0 2 * * *</td>
+        <td style="width:48pt;">пересчет результатов ревизии</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_check_items_price.php</td>
+        <td style="width:48pt;">0 6 * * *</td>
+        <td style="width:48pt;">ценники позиций (накладные)</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:86.4pt;width:48pt;">crone_check_bill_by_days.php</td>
+        <td style="width:48pt;">0 12 * * *</td>
+        <td style="width:48pt;">проверка накладных на залежалость</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">crone_check_cod.php</td>
+        <td style="width:48pt;">0 0 * * *</td>
+        <td style="width:48pt;">сброс количества дневных смс</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_check_pr_by_pf.php</td>
+        <td style="width:48pt;">40 2 * * *</td>
+        <td style="width:48pt;">подсчет прогноза заготовок</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:86.4pt;width:48pt;">crone_check_site_users_stat.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">Статистика клиента сайта</td>
+        <td style="width:48pt;">Был * 8 * * * через&nbsp;wget --no-check-certificate. Теперь в Laravel. Запуск после crone_count_active_accounts</td>
+        <td>Работает</td>
+        <td>
+          <p>app/Http/Controllers/Crone/Controller_crone_count_active_accounts.php</p>
+          <p>Метод crone_check_site_users_stat()</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">crone_check_sklad.php</td>
+        <td style="width:48pt;">15 2 * * *</td>
+        <td style="width:48pt;">подсчет склада онлайн (вторая версия)</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_check_smena_warn.php</td>
+        <td style="width:48pt;">0 23 * * *</td>
+        <td style="width:48pt;">проверка на открытость смены</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:99.6pt;width:48pt;">crone_start_check_app_work.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">проверка уборок</td>
+        <td style="width:48pt;">Было */10 * * * *, wget --no-check-certificate. Теперь в Laravel. everyTenMinutes()-&gt;between('23:30', '23:59')-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/Crons_start_app_work/Cron_start_check_app_work.php</td>
+      </tr>
+      <tr>
+        <td style="height:100.8pt;width:48pt;">crone_start_app_works_5.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">автоматическая уборка, чистка ножа&nbsp;</td>
+        <td style="width:48pt;">Было 0 23 * * *, wget --no-check-certificate. Теперь в Laravel. dailyAt('23:00')-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/Crons_start_app_work/Cron_start_app_works_5.php</td>
+      </tr>
+      <tr>
+        <td style="height:115.2pt;width:48pt;">crone_start_app_works_3.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">готовые уборки для поваров (ножи, доски)</td>
+        <td style="width:48pt;">Было 0 23 * * *, wget --no-check-certificate. Теперь в Laravel. dailyAt('23:00')-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/Crons_start_app_work/Cron_start_app_works_3.php</td>
+      </tr>
+      <tr>
+        <td style="height:144.0pt;width:48pt;">crone_start_app_works_2.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">создание готовой уборки кухонному сотруднику</td>
+        <td style="width:48pt;">Было 0 23 * * *, wget --no-check-certificate. Теперь в Laravel. Запуск dailyAt('23:00')-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/Crons_start_app_work/Cron_start_app_works_2.php</td>
+      </tr>
+      <tr>
+        <td style="height:115.2pt;width:48pt;">crone_start_app_works_1.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">уборки кассира по заказу в зале</td>
+        <td style="width:48pt;">Было */15 * * * *, wget --no-check-certificate. Теперь в Laravel, запуск everyFifteenMinutes, runInBackground</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/Crons_start_app_work/Cron_start_app_works_1.php</td>
+      </tr>
+      <tr>
+        <td style="height:129.6pt;width:48pt;">crone_check_load_users_test.php</td>
+        <td style="width:48pt;">10,20,30,40,50,01 * * * *</td>
+        <td style="width:48pt;">проверка на цвет дня сотрудника, нагрузка на сотрудников</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">crone_check_tmp_load_citchen.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">мгновенная нагрузка на кухню</td>
+        <td style="width:48pt;">Было */10 * * * *.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_avg_time_other.php</td>
+        <td style="width:48pt;">*/15 * * * *</td>
+        <td style="width:48pt;">среднее время готовки / доставки</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>src/img/promo/image_del_crone.php</td>
+        <td>0 0 * * *</td>
+        <td>очистка файлов промиков</td>
+        <td>wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:70.8pt;width:48pt;">crone_start_app_works_4.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">уборка фритюра с 10 до 14</td>
+        <td style="width:48pt;">Было&nbsp;*/5 * * * *, wget --no-check-certificate.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_start_app_works_6.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">уборка вентиляции</td>
+        <td style="width:48pt;">Было&nbsp;0 8 * * *, wget --no-check-certificate.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:70.8pt;width:48pt;">crone_start_app_works_8.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">уборки за 2ч до конца смены</td>
+        <td style="width:48pt;">Было&nbsp;*/30 * * * *, wget --no-check-certificate.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:70.8pt;width:48pt;">crone_start_app_works_9.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">уборки с 12 до 16</td>
+        <td style="width:48pt;">Было&nbsp;*/5 * * * *, wget --no-check-certificate.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:70.8pt;width:48pt;">crone_start_app_works_10.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">уборки</td>
+        <td style="width:48pt;">Было&nbsp;*/5 * * * *, wget --no-check-certificate.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:70.8pt;width:48pt;">crone_start_app_works_11.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">уборки</td>
+        <td style="width:48pt;">Было&nbsp;*/5 * * * *, wget --no-check-certificate.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:70.8pt;width:48pt;">crone_start_app_works_12.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">уборки</td>
+        <td style="width:48pt;">Было&nbsp;*/5 * * * *, wget --no-check-certificate.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">crone_avg_time.php</td>
+        <td style="width:48pt;">*/5 * * * *</td>
+        <td style="width:48pt;">среднее время исполнения заказа</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">crone_check_time_overtime.php</td>
+        <td style="width:48pt;">*/5 * * * *</td>
+        <td style="width:48pt;">запись времени опозданий заказов</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:70.8pt;width:48pt;">crone_start_app_works_new.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">план уборок</td>
+        <td style="width:48pt;">Был */5 * * * *, wget --no-check-certificate. Теперь в Laravel, запуск everyFiveMinutes, runInBackground</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/Crons_start_app_work/Cron_start_app_works_new.php</td>
+      </tr>
+      <tr>
+        <td style="height:100.8pt;width:48pt;">crone_check_site_users_stat_v2.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">статистика заказов клиентов</td>
+        <td style="width:48pt;">Был&nbsp;5 5 * * *, wget --no-check-certificate. Теперь в Laravel. Запуск dailyAt('02:00'), затем sleep(60)</td>
+        <td>Работает</td>
+        <td>
+          <p>app/Http/Controllers/Crone/Controller_crone_check_site_users_stat_v2.php</p>
+          <p>Метод collectOrderStatistics()</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="height:86.4pt;width:48pt;">crone_check_site_users_stat_v3.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">статистика заказов клиента</td>
+        <td style="width:48pt;">Был&nbsp;* 8 * * *, wget --no-check-certificate. Теперь в Laravel, запуск после crone_check_site_users_stat</td>
+        <td>Работает</td>
+        <td>
+          <p>app/Http/Controllers/Crone/Controller_crone_count_active_accounts.php</p>
+          <p>Метод Crone_check_site_users_stat_v3()</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_check_send_app.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">тест приложения</td>
+        <td style="width:48pt;">Было * * * * *, wget --no-check-certificate.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:144.0pt;width:48pt;">crone_close_spis.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">промо на списание с кассы</td>
+        <td style="width:48pt;">curl</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:144.0pt;width:48pt;">crone_close_spis.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">промо на списание с кассы</td>
+        <td style="width:48pt;">Было * * * * *, wget</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:170.4pt;width:48pt;">crone_check_send_app_driver.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">уведомления для курьеров</td>
+        <td style="width:48pt;">Активный wget --no-check-certificate; дублирующая&nbsp;curl-версия закомментирована.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>crone_check_pays.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td>данные об онлайн оплате</td>
+        <td>Было 30 4 * * *, wget --no-check-certificate.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">crone_backup_base_table.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">бекап всех таблиц базы часть 1</td>
+        <td style="width:48pt;">Было 50 4 * * *, wget --no-check-certificate. Теперь в Laravel</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>crone_backup_base_table_part2.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td>бекап всех таблиц базы часть 2</td>
+        <td>Было * * * * *, wget --no-check-certificate. Теперь в Laravel</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>crone_backup_base_table</td>
+        <td>dailyAt('04:30')</td>
+        <td>Создаются бекапы БД потаблично, архивируются и грузятся в облако с очисткой старых копий</td>
+        <td>runInBackground</td>
+        <td>Работает</td>
+        <td>app/Http/Controllers/Crone/Controller_crone_backup_base_table.php</td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">crone_vk_goods_update.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">обновление товаров ВК</td>
+        <td style="width:48pt;">wget -O -, вывод в stdout, потом в&nbsp;/dev/null.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:115.2pt;width:48pt;">crone_backup_script.php</td>
+        <td style="width:48pt;">0 6 * * *</td>
+        <td style="width:48pt;">создает бекап jacochef и заливает в хранилище</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_point_zone_active.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">активирует все зоны точек</td>
+        <td style="width:48pt;">Было 0 2 * * *, wget --no-check-certificate.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:100.8pt;width:48pt;">crone_update_items.php</td>
+        <td style="width:48pt;">0 5 * * *</td>
+        <td style="width:48pt;">обновление описаний/позиций (Описание)</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:86.4pt;width:48pt;">crone_check_work_time.php</td>
+        <td style="width:48pt;">*/15 * * * *</td>
+        <td style="width:48pt;">проверка активности человека на кухне</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_del_trash.php</td>
+        <td style="width:48pt;">0 3 * * *</td>
+        <td style="width:48pt;">удаление старых данных из базы</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_get_pay_info.php</td>
+        <td style="width:48pt;">*/6 * * * *</td>
+        <td style="width:48pt;">данные об онлайн оплате</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:100.8pt;width:48pt;">check_rec_items.php</td>
+        <td style="width:48pt;">30 5 * * *</td>
+        <td style="width:48pt;">обновление состава позиций в заготовках</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">crone_check_ras_max.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">новый подсчет расхода заготовок</td>
+        <td style="width:48pt;">Было 15 0 * * *, wget --no-check-certificate.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_check_ras_by_pf_mini.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">расход заготовок упр</td>
+        <td style="width:48pt;">Было 0 2 * * *, wget --no-check-certificate.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:168.0pt;width:48pt;">crone_check_order_start_time.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">задание времени заказу</td>
+        <td style="width:48pt;">curl --data "point_id=…"; запускается каждую минуту для точек&nbsp;1,2,3,4,5,6,7,8</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:112.8pt;width:48pt;">crone_new_check_stol.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">распределение заказов на тестовой</td>
+        <td style="width:48pt;">wget -O - команда?0</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:112.8pt;width:48pt;">crone_new_check_stol.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">распределение заказов на ленинградке</td>
+        <td style="width:48pt;">wget -O - команда?1</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:112.8pt;width:48pt;">crone_new_check_stol.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">распределение заказов на ворошилова</td>
+        <td style="width:48pt;">wget -O - команда?2</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:112.8pt;width:48pt;">crone_new_check_stol.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">распределение заказов на матросова</td>
+        <td style="width:48pt;">wget -O - команда?3</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:112.8pt;width:48pt;">crone_new_check_stol.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">распределение заказов на куйбышева</td>
+        <td style="width:48pt;">wget -O - команда?4</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:112.8pt;width:48pt;">crone_new_check_stol.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">распределение заказов на победе</td>
+        <td style="width:48pt;">wget -O - команда?5</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:112.8pt;width:48pt;">crone_new_check_stol.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">распределение заказов на цветном</td>
+        <td style="width:48pt;">wget -O - команда?6</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:112.8pt;width:48pt;">crone_new_check_stol.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">распределение заказов на молодёжке</td>
+        <td style="width:48pt;">wget -O - команда?7</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:112.8pt;width:48pt;">crone_new_check_stol.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">распределение заказов на ямайке</td>
+        <td style="width:48pt;">wget -O - команда?8</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:184.8pt;width:48pt;">crone_new_check_stol_new.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td>распределение заказов на тестовой точке</td>
+        <td>Было * * * * * curl --data “point_id=0”</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:184.8pt;width:48pt;">crone_new_check_stol_new.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td>распределение заказов на ленинградке</td>
+        <td>Было * * * * * curl --data “point_id=1”</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:184.8pt;width:48pt;">crone_new_check_stol_new.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td>распределение заказов на ворошилова</td>
+        <td>Было * * * * * curl --data “point_id=2”</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:184.8pt;width:48pt;">crone_new_check_stol_new.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td>распределение заказов на матросова</td>
+        <td>Было * * * * * curl --data “point_id=3”</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:184.8pt;width:48pt;">crone_new_check_stol_new.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td>распределение заказов на куйбышева</td>
+        <td>Было * * * * * curl --data “point_id=4”</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:184.8pt;width:48pt;">crone_new_check_stol_new.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td>распределение заказов на победе</td>
+        <td>Было * * * * * curl --data “point_id=5”</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:184.8pt;width:48pt;">crone_new_check_stol_new.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td>распределение заказов на цветном</td>
+        <td>Было * * * * * curl --data “point_id=6”</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:184.8pt;width:48pt;">crone_new_check_stol_new.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td>распределение заказов на молодёжке</td>
+        <td>Было * * * * * curl --data “point_id=7”</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_send_order_post.php</td>
+        <td style="width:48pt;">*/10 * * * *</td>
+        <td style="width:48pt;">отправка заявок поставщикам</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">crone_send_sms_pic.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">смс о готовности самовывоза</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">check_update_BJY_pdf.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">обновление файла БЖУ на сайте</td>
+        <td style="width:48pt;">Было 0 3 * * *, wget --no-check-certificate. Теперь в Laravel. Запуск dailyAt('03:00')-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/Controller_crone_check_update_BJY_pdf.php</td>
+      </tr>
+      <tr>
+        <td style="height:156.0pt;width:48pt;">crone_check_load_users_new.php</td>
+        <td style="width:48pt;">8,18,28,38,48,58 * * * *</td>
+        <td style="width:48pt;">нагрузка на сотрудников (wget-вариант)</td>
+        <td style="width:48pt;">Было 8,18,28,38,48,58 * * * * wget --no-check-certificate, сейчас используется bash-скрипт.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:86.4pt;width:48pt;">crone_orders_dop_info.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">заполнение дополнительных полей заказа</td>
+        <td style="width:48pt;">wget -O - ... --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:86.4pt;width:48pt;">crone_check_users_health_book.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">проверка на заполненность мед книжки</td>
+        <td style="width:48pt;">wget.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:100.8pt;width:48pt;">crone_close_buy.php</td>
+        <td style="width:48pt;">*/5 * * * *</td>
+        <td style="width:48pt;">проверяет, есть ли позиция в базе для стопа</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_find_lost_users.php</td>
+        <td style="width:48pt;">0 2 * * *</td>
+        <td style="width:48pt;">подсчет ушедших клиентов</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:100.8pt;width:48pt;">crone_check_duplicate_addr.php</td>
+        <td style="width:48pt;">*/5 * * * *</td>
+        <td style="width:48pt;">проверка адресов клиентов (дубликаты)</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>https://jacochef.ru/test_dm22.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td>тестовый скрипт для очистки базы</td>
+        <td>Было * * * * * wget&nbsp;</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:115.2pt;width:48pt;">crone_calc_order_time.php</td>
+        <td style="width:48pt;">*/10 * * * *</td>
+        <td style="width:48pt;">считает реальное поварское время по категориям</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:54.0pt;width:48pt;">crone_self_price.php</td>
+        <td style="width:48pt;">50 23 * * *</td>
+        <td style="width:48pt;">себестоимость блюд</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:70.8pt;width:48pt;">crone_orders_queue.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">обновление очереди заказов</td>
+        <td style="width:48pt;">*/15 * * * *, строка закомментирована.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_check_oif.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">проверка таблицы oif</td>
+        <td style="width:48pt;">wget -O -.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_update_stage_3.php</td>
+        <td style="width:48pt;">*/10 * * * *</td>
+        <td style="width:48pt;">обновление user_stage_3</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:86.4pt;width:48pt;">crone_check_pays_get_cencel.php</td>
+        <td style="width:48pt;">*/5 * * * *</td>
+        <td style="width:48pt;">списание захолдированных средств</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:85.2pt;width:48pt;">cron_weather.php</td>
+        <td style="width:48pt;">0 * * * *</td>
+        <td style="width:48pt;">сбор данных о погоде по точкам</td>
+        <td style="width:48pt;">wget --no-check-certificate</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:142.8pt;width:48pt;">crone_atol_fiscal.php</td>
+        <td style="width:48pt;">*/5 * * * *</td>
+        <td style="width:48pt;">Проверка фискализации чеков</td>
+        <td style="width:48pt;">wget -O --no-check-certificate</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:142.8pt;width:48pt;">crone_atol_fiscal.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">Проверка и повторная фискализация платежей</td>
+        <td style="width:48pt;">Было&nbsp;0 7 * * * wget --no-check-certificate.</td>
+        <td>Отключен</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:129.6pt;width:48pt;">crone_create_sitemap_yml.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">обновление списка товаров для яндекс бизнес</td>
+        <td style="width:48pt;">Было 0 8 * * *, wget. Теперь в Laravel dailyAt('08:00')-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Http/Controllers/Crone/Controller_crone_create_sitemap_yml.php</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_atol_fiscal_fix.php</td>
+        <td style="width:48pt;">0 9 * * *</td>
+        <td style="width:48pt;">фискализация не пробитых чеков</td>
+        <td style="width:48pt;">wget.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_ofd_cash_book_svod.php</td>
+        <td style="width:48pt;">0 6 * * *</td>
+        <td style="width:48pt;">подсчет итогов кассовой книги</td>
+        <td style="width:48pt;">wget.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">crone_ofd_cash_book_driver_cash.php</td>
+        <td style="width:48pt;">*/10 * * * *</td>
+        <td style="width:48pt;">курьеры к сдаче в кассовую книгу</td>
+        <td style="width:48pt;">wget.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_check_bonus_per_day.php</td>
+        <td style="width:48pt;">*/10 * * * *</td>
+        <td style="width:48pt;">начисление бонуса</td>
+        <td style="width:48pt;">wget --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>crone_change_price_lavel.php</td>
+        <td>* */1 * * *</td>
+        <td>обновление ценников на сайте</td>
+        <td>wget</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>crone_change_sum_dev.php</td>
+        <td>0 0 * * *</td>
+        <td>изменение суммы доставки / коэфециентов по пицце / ЗП директора</td>
+        <td>wget</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:115.2pt;width:48pt;">crone_count_active_accounts.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">данные по активным аккаунтам</td>
+        <td style="width:48pt;">Было 0 7 * * *, wget. Теперь в Laravel. Запуск после crone_check_site_users_stat_v2</td>
+        <td>Работает</td>
+        <td>
+          <p>app/Http/Controllers/Crone/Controller_crone_count_active_accounts.php</p>
+          <p>Метод generateMonthlyAccountStatistics()</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">crone_api_ofd.php</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">выгрузка чеков из ОФД</td>
+        <td style="width:48pt;">Было */60 * * * *, wget --no-check-certificate. Теперь в Laravel. Запуск hourly()-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Http/Controllers/Crone/Controller_crone_api_ofd.php</td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">crone_yandex_metrik.php</td>
+        <td style="width:48pt;">1 1 * * *</td>
+        <td style="width:48pt;">отправка данных в метрику (Яндекс)</td>
+        <td style="width:48pt;">wget.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">crone_check_new_users.php</td>
+        <td style="width:48pt;">0 10 * * *</td>
+        <td style="width:48pt;">список новых клиентов</td>
+        <td style="width:48pt;">wget.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td style="height:67.2pt;width:48pt;">crone_check_status_1c.php</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">из 1С в нашу базу</td>
+        <td style="width:48pt;">wget -O - --no-check-certificate.</td>
+        <td>Работает</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>check_load_1c_smens</td>
+        <td>everyFiveMinutes</td>
+        <td>&nbsp;</td>
+        <td>runInBackground</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/Check_load_smens/Check_load_smens.php</td>
+      </tr>
+      <tr>
+        <td>send_user_push</td>
+        <td>everyThirtyMinutes</td>
+        <td>&nbsp;</td>
+        <td>&gt;timezone('Europe/Samara')<br>-&gt;between('08:00', '21:00')<br>-&gt;runInBackground();</td>
+        <td>Работает</td>
+        <td>app/Http/Controllers/Crone/Controller_app_push_send.php</td>
+      </tr>
+      <tr>
+        <td>update_sourse_orders</td>
+        <td>hourly</td>
+        <td>Заполняет источник трафика у заказа</td>
+        <td>runInBackground</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/AttributeOrders.php</td>
+      </tr>
+      <tr>
+        <td>roistat:sync-orders</td>
+        <td>hourly</td>
+        <td>Push paid orders to Roistat</td>
+        <td>runInBackground</td>
+        <td>Отключен</td>
+        <td>app/Console/Commands/SyncRoistatOrders/SyncRoistatOrders.php</td>
+      </tr>
+      <tr>
+        <td>update_gender</td>
+        <td>hourly</td>
+        <td>&nbsp;</td>
+        <td>timezone('Europe/Samara')</td>
+        <td>Работает</td>
+        <td>app/Http/Controllers/Crone/Controller_determine_gender_user.php</td>
+      </tr>
+      <tr>
+        <td>ofd:check-new-fs</td>
+        <td>dailyAt('03:00')</td>
+        <td>Крон который будет проверять на кассах наличие новых ФН</td>
+        <td>runInBackground</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/Ofd/OfdCheckNewFs.php</td>
+      </tr>
+      <tr>
+        <td>cron:generate-diagram</td>
+        <td>dailyAt('04:00')</td>
+        <td>Генерирует mermaid mmd и html файл с зависимостями cron-задач из @jaco.cron аннотаций</td>
+        <td>runInBackground</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/GenerateCronDiagramCommand.php</td>
+      </tr>
+      <tr>
+        <td>ofd:check-fns</td>
+        <td>dailyAt('04:05')</td>
+        <td>Опрос торговых точек через Первый ОФД, получение актуальных ФН и обновление сроков их окончания</td>
+        <td>runInBackground</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/Ofd/CheckFnForAllPoints.php</td>
+      </tr>
+      <tr>
+        <td>app:update-cash-book</td>
+        <td>dailyAt('06:00')</td>
+        <td>Обновление остатков cash_book</td>
+        <td>appendOutputTo(storage_path('logs/update-cash-book.log'))-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/UpdateCashBook.php</td>
+      </tr>
+      <tr>
+        <td>count_pos_by_cat_rasform</td>
+        <td>dailyAt('05:00')</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Работает</td>
+        <td>
+          <p>app/Http/Controllers/Crone/Controller_count_pos_by_cat_rasform.php</p>
+          <p>Метод <i>start_yesterday()</i></p>
+        </td>
+      </tr>
+      <tr>
+        <td>crone_create_sitemap</td>
+        <td>dailyAt('08:00')</td>
+        <td>Генерирует sitemap.xml по городам, страницам, товарам и баннерам; загружает в S3</td>
+        <td>runInBackground</td>
+        <td>Работает</td>
+        <td>app/Http/Controllers/Crone/Controller_crone_create_sitemap.php</td>
+      </tr>
+      <tr>
+        <td>app:mail-one-hour-drivers-feedback</td>
+        <td>hourly()</td>
+        <td>Отправка на почту feedback_drivers</td>
+        <td>runInBackground</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/MailOneHourDriversFeedback.php</td>
+      </tr>
+      <tr>
+        <td>promo:update_promo_items</td>
+        <td>dailyAt('09:00')</td>
+        <td>Автообновление списка товаров промо c ID jaco_main_rolls.settings.promo_spis</td>
+        <td>runInBackground</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/UpdatePromo.php</td>
+      </tr>
+      <tr>
+        <td>save:average-cooking-time</td>
+        <td>dailyAt('09:00')</td>
+        <td>Сохранение среднего времени приготовления из статистики в таблицу active_accounts</td>
+        <td>appendOutputTo(storage_path('logs/average-cooking-time.log'))-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/SaveAverageCookingTime.php</td>
+      </tr>
+      <tr>
+        <td>save:save-site-items-update</td>
+        <td>dailyAt('09:00')</td>
+        <td>Сохранение items</td>
+        <td>appendOutputTo(storage_path('logs/save-site-items-update.log'))-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/SaveSiteItemsStart.php</td>
+      </tr>
+      <tr>
+        <td>save:recipe-items-update</td>
+        <td>dailyAt('09:00')</td>
+        <td>Сохранение recipes</td>
+        <td>appendOutputTo(storage_path('logs/recipe-items-update.log'))-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/SaveRicipesStart.php</td>
+      </tr>
+      <tr>
+        <td>update_kassir_register_price</td>
+        <td>daily()-&gt;at('23:30')</td>
+        <td>Обновляет цены кассиру за регистрацию клиентов</td>
+        <td>runInBackground</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/Update_kassir_register_price/Update_kassir_register_price.php</td>
+      </tr>
+      <tr>
+        <td>app:update-future-cities-periods</td>
+        <td>
+          <p>monthlyOn(1, '00:00')</p>
+          <p>monthlyOn(16, '00:00')</p>
+        </td>
+        <td>Обновление будущих периодов для городов</td>
+        <td>appendOutputTo(storage_path('logs/future-cities-periods.log'))-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/WorkSchedule/UpdateFutureCitiesPeriods.php</td>
+      </tr>
+      <tr>
+        <td>app:update-future-app-per-h-periods</td>
+        <td>
+          <p>monthlyOn(1, '00:00')</p>
+          <p>monthlyOn(16, '00:00')</p>
+        </td>
+        <td>Обновление будущих периодов для зарплат</td>
+        <td>appendOutputTo(storage_path('logs/future-app-per-h-periods.log'))-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/WorkSchedule/UpdateFutureAppPerHPeriods.php</td>
+      </tr>
+      <tr>
+        <td>app:update-vk-items</td>
+        <td>dailyAt('00:00')</td>
+        <td>Обновление vk предметов</td>
+        <td>appendOutputTo(storage_path('logs/update-vk-items.log'))-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/Vk/UpdateVkItems.php</td>
+      </tr>
+      <tr>
+        <td>users:update-future-user-update</td>
+        <td>dailyAt('00:00')</td>
+        <td>Обработка и изменений сотрудников</td>
+        <td>appendOutputTo(storage_path('logs/update-future-user-update.log'))-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/WorkSchedule/UpdateFutureUserUpdate.php</td>
+      </tr>
+      <tr>
+        <td>users:update-future-delete-user</td>
+        <td>dailyAt('01:00')</td>
+        <td>Обработка увольнений и изменений сотрудников</td>
+        <td>appendOutputTo(storage_path('logs/update-future-delete-user.log'))-&gt;runInBackground()</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/WorkSchedule/UpdateFutureDeleteUser.php</td>
+      </tr>
+      <tr>
+        <td>cafe:cron-update-cafe-wages</td>
+        <td>dailyAt('00:05')</td>
+        <td>Для каждой активной точки обновляет зарплатные ставки с даты активации</td>
+        <td>runInBackground</td>
+        <td>Работает</td>
+        <td>app/Console/Commands/Cafe/Cron_update_cafe_wages.php</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<h1>Таблица прочих кронов (ISP, бэкапы, мониторинг, логирование и т.д.)</h1>
+<figure class="table">
+  <table>
+    <thead>
+      <tr>
+        <th>Скрипт</th>
+        <th>Cron в Jacoeda</th>
+        <th>Описание</th>
+        <th>Примечание</th>
+        <th>Статус</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="height:86.4pt;width:48pt;">sbin/mgrctl -m core acmesh.certs.update</td>
+        <td style="width:48pt;">11 3 * * *</td>
+        <td style="width:48pt;">ISPsystem acme.sh certs update task</td>
+        <td style="width:48pt;">/usr/local/mgr5/sbin/cron-core …</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:66.0pt;width:48pt;">sbin/mgrctl -m core deletearchivelogs</td>
+        <td style="width:48pt;">0 3 * * *</td>
+        <td style="width:48pt;">ISPsystem delete expire logs task</td>
+        <td style="width:48pt;">/usr/local/mgr5/sbin/cron-core …</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">sbin/usagestat</td>
+        <td style="width:48pt;">40 3 * * *</td>
+        <td style="width:48pt;">ISPsystem usagestat task</td>
+        <td style="width:48pt;">/usr/local/mgr5/sbin/cron-core …</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:57.6pt;width:48pt;">sbin/mgrctl -m ispmgr ispstat</td>
+        <td style="width:48pt;">13 6 * * *</td>
+        <td style="width:48pt;">ISPmanager stat handler (ispmgr)</td>
+        <td style="width:48pt;">/usr/local/mgr5/sbin/cron-ispmgr …</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:86.4pt;width:48pt;">sbin/mgrctl -m ispmgr periodic</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">ISPmanager periodic tasks handler (ispmgr)</td>
+        <td style="width:48pt;">/usr/local/mgr5/sbin/cron-ispmgr …</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:72.0pt;width:48pt;">sbin/mgrctl -m ispmgr checkdsrecords</td>
+        <td style="width:48pt;">57 4 * * 0</td>
+        <td style="width:48pt;">Check DS records from the domain registrar</td>
+        <td style="width:48pt;">/usr/local/mgr5/sbin/cron-ispmgr …</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:86.4pt;width:48pt;">sbin/mgrctl -m ispmgr letsencrypt.check.update</td>
+        <td style="width:48pt;">11 3 * * *</td>
+        <td style="width:48pt;">ISPmanager letsencrypt cert update check</td>
+        <td style="width:48pt;">/usr/local/mgr5/sbin/cron-ispmgr …</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:138.0pt;width:48pt;">sbin/mgrctl -m core sysinfostat</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">ISPsystem task which collect system statistics</td>
+        <td style="width:48pt;">Было */5 * * * * /usr/local/mgr5/sbin/cron-core …</td>
+        <td>Отключен</td>
+      </tr>
+      <tr>
+        <td style="height:100.8pt;width:48pt;">sbin/mgrctl -m core problems.autosolve</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">ISPsystem problems autosolve task (/usr/local/mgr5)</td>
+        <td style="width:48pt;">Было */5 * * * * /usr/local/mgr5/sbin/cron-core …</td>
+        <td>Отключен</td>
+      </tr>
+      <tr>
+        <td style="height:79.2pt;width:48pt;">sbin/metric</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">ISPmanager metric task</td>
+        <td style="width:48pt;">Было */5 * * * * /usr/local/mgr5/sbin/cron-ispmgr …</td>
+        <td>Отключен</td>
+      </tr>
+      <tr>
+        <td style="height:100.8pt;width:48pt;">sbin/mgrctl -m ispmgr problems.autosolve</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">ISPsystem problems autosolve task (/usr/local/mgr5)</td>
+        <td style="width:48pt;">Было */5 * * * * /usr/local/mgr5/sbin/cron-ispmgr …</td>
+        <td>Отключен</td>
+      </tr>
+      <tr>
+        <td style="height:118.8pt;width:48pt;">sbin/pkgupdate.sh</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">ISPsystem update package cache task</td>
+        <td style="width:48pt;">Было 48 14 * * * /usr/local/mgr5/sbin/cron-ispmgr sbin/pkgupdate.sh …</td>
+        <td>Отключен</td>
+      </tr>
+      <tr>
+        <td style="height:92.4pt;width:48pt;">./backup.sh</td>
+        <td style="width:48pt;">30 4 * * *</td>
+        <td style="width:48pt;">бекап всех баз, каждую в свой файл</td>
+        <td style="width:48pt;">cd /var/www/jacochef/data/www/mbck/; ./backup.sh</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:92.4pt;width:48pt;">./monitor.sh</td>
+        <td style="width:48pt;">*/10 * * * *</td>
+        <td style="width:48pt;">Мониторинг нагрузки процессора и памяти</td>
+        <td style="width:48pt;">cd /var/www/jacochef/data/www/monitor/; ./monitor.sh</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:86.4pt;width:48pt;">sh /var/www/jacochef/clean2.sh</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">освобождение памяти удаленных файлов</td>
+        <td style="width:48pt;">Было */30 * * * * sh /var/www/jacochef/clean2.sh</td>
+        <td>Отключен</td>
+      </tr>
+      <tr>
+        <td style="height:92.4pt;width:48pt;">./sql_log.sh</td>
+        <td style="width:48pt;">* * * * *</td>
+        <td style="width:48pt;">Логирование запросов базы</td>
+        <td style="width:48pt;">cd /var/www/jacochef/data/www/sql_log/; ./sql_log.sh</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:92.4pt;width:48pt;">./clear_backup.sh</td>
+        <td style="width:48pt;">0 6 * * *</td>
+        <td style="width:48pt;">Очистка папки base_backup от бекапов</td>
+        <td style="width:48pt;">cd /var/www/jacochef/data/www/mbck/; ./clear_backup.sh</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:92.4pt;width:48pt;">./clear_root.sh</td>
+        <td style="width:48pt;">0 9 * * *</td>
+        <td style="width:48pt;">Очистка папки root от логов</td>
+        <td style="width:48pt;">cd /var/www/jacochef/data/www/mbck/; ./clear_root.sh</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:105.6pt;width:48pt;">sbin/backup2 --mode schedule</td>
+        <td style="width:48pt;">0 1 * * 0,1-6</td>
+        <td style="width:48pt;">Ispmanager backup task</td>
+        <td style="width:48pt;">/usr/local/mgr5/sbin/cron-ispmgr sbin/backup2 --mode schedule</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:105.6pt;width:48pt;">./copy_mysql_slow_log.sh</td>
+        <td style="width:48pt;">10 0 * * *</td>
+        <td style="width:48pt;">Копирование лога медленных запросов за день</td>
+        <td style="width:48pt;">cd /var/www/jacochef/data/www/mbck/; ./copy_mysql_slow_log.sh</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:92.4pt;width:48pt;">./clear_log.sh</td>
+        <td style="width:48pt;">19 * * * *</td>
+        <td style="width:48pt;">Очистка логов2</td>
+        <td style="width:48pt;">cd /var/www/jacochef/data/www/; ./clear_log.sh</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:144.0pt;width:48pt;">./move_bd.sh</td>
+        <td style="width:48pt;">30 5 * * *</td>
+        <td style="width:48pt;">Скрипт который перемещает бекап базы для отправки на тестовый сервер</td>
+        <td style="width:48pt;">cd /var/www/jacochef/data/www/; ./move_bd.sh</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:105.6pt;width:48pt;">addon/srvmon</td>
+        <td style="width:48pt;">Отключен</td>
+        <td style="width:48pt;">Ispmanager services monitoring task (srvmon)</td>
+        <td style="width:48pt;">#*/5 * * * * /usr/local/mgr5/sbin/cron-ispmgr addon/srvmon …</td>
+        <td>Работает</td>
+      </tr>
+      <tr>
+        <td style="height:145.2pt;width:48pt;">./crone_check_load_users_new.sh</td>
+        <td style="width:48pt;">8,18,28,38,48,58 * * * *</td>
+        <td style="width:48pt;">нагрузка на сотрудников, Многопоточность!</td>
+        <td style="width:48pt;">cd /var/www/jacochef/data/www/jacochef.ru/php/crone/; ./crone_check_load_users_new.sh</td>
+        <td>Работает</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<h1>Зависимости cron-заданий, генерация схемы</h1>
+<p>Каждая cron-задача оформляется через аннотацию <code>@jaco.cron</code> в PHP-комментариях. Эта аннотация содержит JSON с описанием задачи: что она делает, от чего зависит, с какими таблицами/файлами работает, когда запускается, к какой группе принадлежит и на какую страницу-диаграмму (<code>page</code>) попадает. Имеется дефолтная страница-диаграмма для задач, не попавших никуда (не указали page).</p>
+<p>Парсинг осуществляется по файлам каталога <code>app/Http/Controllers/Crone</code></p>
+<p>После парсинга аннотаций выполняется генерация интерактивной Mermaid диаграммы, отражающей связи между задачами, таблицами и файлами. Подробнее с Mermaid можно ознакомиться по <a href="https://mermaid.js.org/">ссылке</a></p>
+<p>Пример аннотации</p>
+<pre><code class="language-php">/**
+ * @jaco.cron {
+ *   "id": "crone_count_active_accounts",
+ *   "type": "data",
+ *   "group": "Пользователи",
+ *   "depends_on": ["cron_check_site_users_stat_v2"],
+ *   "reads": [
+ *     "jaco_site_rolls.site_orders_new",
+ *     "jaco_main_rolls.site_users"
+ *   ],
+ *   "writes": [
+ *     "jaco_site_rolls.active_accounts",
+ *     "jaco_site_rolls.active_accounts_city",
+ *     "jaco_site_rolls.active_accounts_all"
+ *   ],
+ *   "time": "после cron_check_site_users_stat_v2",
+ *   "schedule": "ежедневно",
+ *   "description": "Агрегирует данные о заказах пользователей по точкам и городам: активность, регистрация, сумма и число заказов"
+ * }
+ */</code></pre>
+<p>Расшифровка полей:</p>
+<figure class="table">
+  <table>
+    <thead>
+      <tr>
+        <th>Поле</th>
+        <th>Обязательно</th>
+        <th>Тип</th>
+        <th>Описание</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>id</code></td>
+        <td>✅</td>
+        <td>string</td>
+        <td>Уникальный идентификатор задачи. Используется как ключ в графе.</td>
+      </tr>
+      <tr>
+        <td><code>name</code></td>
+        <td>❌</td>
+        <td>string</td>
+        <td>Отображаемое имя на диаграмме. Если не указано, будет использован <code>id</code>.</td>
+      </tr>
+      <tr>
+        <td><code>type</code></td>
+        <td>❌</td>
+        <td>string</td>
+        <td>Тип задачи (например: <code>sitemap</code>, <code>backup</code>, <code>report</code>, <code>data</code>, <code>cleanup</code> и др.). Влияет на цвет узла.</td>
+      </tr>
+      <tr>
+        <td><code>group</code></td>
+        <td>❌</td>
+        <td>string</td>
+        <td>Логическая группа задач на диаграмме (например: <code>"Каталоги"</code>, <code>"Импорт"</code>). Визуально выделяется. Зависимые кроны можно группировать по этому полю, зависимость задаётся через depends_on</td>
+      </tr>
+      <tr>
+        <td><code>page</code></td>
+        <td>❌</td>
+        <td>string</td>
+        <td>Название страницы, на которую попадёт задача. Каждая <code>page</code> — отдельный HTML-файл. Если не указано, попадёт в <code>cron_diagram_default.html</code>.</td>
+      </tr>
+      <tr>
+        <td><code>depends_on</code></td>
+        <td>❌</td>
+        <td>array</td>
+        <td>Массив <code>id</code> других задач, от которых зависит текущая. На диаграмме — стрелка.</td>
+      </tr>
+      <tr>
+        <td><code>reads</code></td>
+        <td>❌</td>
+        <td>array</td>
+        <td>Источники (таблицы/файлы), которые читает задача.</td>
+      </tr>
+      <tr>
+        <td><code>writes</code></td>
+        <td>❌</td>
+        <td>array</td>
+        <td>Источники, в которые записывает задача.</td>
+      </tr>
+      <tr>
+        <td><code>time</code></td>
+        <td>❌</td>
+        <td>string</td>
+        <td>Человеко-понятное время запуска (например: <code>в 08:00</code>). Отображается в узле.</td>
+      </tr>
+      <tr>
+        <td><code>schedule</code></td>
+        <td>❌</td>
+        <td>string</td>
+        <td>Человеко-понятная периодичность (например: <code>ежедневно</code>, <code>по вторникам</code>).</td>
+      </tr>
+      <tr>
+        <td><code>description</code></td>
+        <td>❌</td>
+        <td>string</td>
+        <td>Подробное описание задачи. Отображается как tooltip при наведении внизу страницы.</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Рекомендации:</p>
+<ul>
+  <li>Для таблиц указывайте <code>schema.table</code>, чтобы избежать коллизий.</li>
+  <li>Для файлов начинайте путь с <code>public/</code>, <code>storage/</code>, <code>s3_</code> и т.п., чтобы парсер распознал тип (<code>file</code>).</li>
+  <li>Не используйте <code>*</code> в <code>reads</code>/<code>writes</code> — это блокируется.</li>
+  <li>Следите за балансом: слишком много <code>reads</code>/<code>writes</code> может захламить визуализацию — группируйте их, например <code><i>jaco_rolls_*.orders</i></code><i> </i>для таблиц orders разных точек.</li>
+</ul>
+<p>Для запуска используйте artisan-команду. Либо по крону запускается в 04:00 ежедневно. По-умолчанию всё логируется через Helper в обычных для кронов логах. Доступен режим дебага <code>php artisan cron:generate-diagram --debug</code> для вывода логов в консоль найденных аннотаций, возможных ошибок JSON, диагностических сообщений</p>

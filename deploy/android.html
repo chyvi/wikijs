@@ -1,0 +1,25 @@
+<!--
+title: Deploy Android
+description: 
+published: true
+date: 2024-07-04T06:44:43.971Z
+tags: 
+editor: ckeditor
+dateCreated: 2024-07-04T06:05:53.186Z
+-->
+
+<p>Повышение версии приложения ( versionName )</p>
+<blockquote>
+  <p>android / app / src / build.gradle</p>
+</blockquote>
+<p>Билд для публикации</p>
+<blockquote>
+  <p>Build / Generate signed bundle / APK… / Android App Bundle<br>pwd - android_jaco_keys<br>alias - android_jaco_keys</p>
+  <p>следующий этап - release<br>на выходе получаем файл app-release.aab</p>
+</blockquote>
+<p>далее подключаемся к VPN</p>
+<p>https://play.google.com/console/u/0/developers</p>
+<p>Выбираем нужное приложение<br>Выпуск / Рабочая версия / Создать выпуск<br>Наборы App Bundle</p>
+<blockquote>
+  <p>- загружаем app-release.aab<br>- редактируем сведения о выпуске<br>- Далее<br>- Сохранить<br>- Перейти к обзору<br>- Отправить изменение на проверку</p>
+</blockquote>

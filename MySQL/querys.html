@@ -1,0 +1,46 @@
+<!--
+title: Полезные запросы
+description: 
+published: true
+date: 2025-03-10T05:52:54.696Z
+tags: mysql
+editor: ckeditor
+dateCreated: 2024-12-01T16:20:30.093Z
+-->
+
+<p>&nbsp;</p>
+<blockquote>
+  <p><strong># Посчитать количество всех зарегистрированных акаунтов на сайте, которые мы можем закрепить за кафе, на 30 ноября 2024</strong></p>
+  <p>SELECT<br>&nbsp; &nbsp;point_id,<br>&nbsp; &nbsp;COUNT( DISTINCT number ) as count<br>FROM<br>&nbsp; &nbsp;jaco_site_rolls.site_orders_new son<br>WHERE<br>&nbsp; &nbsp;son.`date`&lt;="2024-11-30"<br>&nbsp; &nbsp; &nbsp; AND<br>&nbsp; &nbsp;`client_id`&gt;0<br>&nbsp; &nbsp; &nbsp; AND<br>&nbsp; &nbsp;type_order IN (1,2)<br>GROUP BY<br>&nbsp; &nbsp;point_id;</p>
+</blockquote>
+<blockquote>
+  <p><strong># Количество активных акаунтов – Зарегистрированные аккаунты, которые сделали заказ в ноябре 2024</strong></p>
+  <p>SELECT<br>&nbsp; &nbsp;point_id,<br>&nbsp; &nbsp;COUNT(*) as count<br>FROM(<br>&nbsp; &nbsp;SELECT<br>&nbsp; &nbsp; &nbsp; son.`number`,<br>&nbsp; &nbsp; &nbsp; son.`point_id`<br>&nbsp; &nbsp;FROM<br>&nbsp; &nbsp; &nbsp; jaco_site_rolls.`site_orders_new` son<br>&nbsp; &nbsp; &nbsp; LEFT JOIN jaco_main_rolls.`site_users` su<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ON<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; son.`client_id`=su.`id`<br>&nbsp; &nbsp; &nbsp; WHERE<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;son.`date` BETWEEN "2024-11-01" AND "2024-11-29"<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AND<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;son.`client_id`&gt;0<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; AND<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;son.type_order IN (1,2)<br>&nbsp; &nbsp; &nbsp; GROUP BY<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;son.`number`<br>) as t<br>GROUP BY<br>&nbsp; &nbsp;point_id</p>
+</blockquote>
+<blockquote>
+  <p><strong># количество повторных заказов по промику</strong></p>
+  <p>SELECT<br>&nbsp; &nbsp;t.`number`,<br>&nbsp; &nbsp;COUNT(*) as count<br>FROM (<br>&nbsp; &nbsp;SELECT<br>&nbsp; &nbsp; &nbsp; son1.`number`<br>&nbsp; &nbsp;FROM<br>&nbsp; &nbsp; &nbsp; jaco_site_rolls.`site_orders_new` son1<br>&nbsp; &nbsp;WHERE<br>&nbsp; &nbsp; &nbsp; son1.`promo_name` LIKE 'УДОБНО'<br>&nbsp; &nbsp;GROUP BY<br>&nbsp; &nbsp; &nbsp; son1.`number`<br>) as t<br>LEFT JOIN jaco_site_rolls.`site_orders_new` son2<br>&nbsp; &nbsp;ON<br>&nbsp; &nbsp; &nbsp; son2.`number`=t.`number`<br>GROUP BY<br>&nbsp; &nbsp;t.`number`<br>HAVING<br>&nbsp; &nbsp;count&gt;3;</p>
+</blockquote>
+<blockquote>
+  <p><strong># Прибавить ко времени количество секунд ( рандомное от 1 до 55 )</strong></p>
+  <p>UPDATE<br>&nbsp; &nbsp;`smena`<br>SET<br>&nbsp; &nbsp;`date_time_open`=ADDTIME(`date_time_open`, SEC_TO_TIME( FLOOR(1 + RAND() * 55) )),<br>&nbsp; &nbsp;`date_time_close`=ADDTIME(`date_time_close`, SEC_TO_TIME( FLOOR(1 + RAND() * 55) ))</p>
+</blockquote>
+<blockquote>
+  <p><strong># Конверсия онлайн заказов</strong></p>
+  <p>SELECT</p>
+  <p>&nbsp; AVG(100 / ( all_count / is_pay )) as percent_pay</p>
+  <p>FROM (</p>
+  <p>&nbsp; SELECT</p>
+  <p>&nbsp; SUM( IF( `status_order`&gt;0, 1, 0 ) ) as is_pay,</p>
+  <p>&nbsp; &nbsp; &nbsp;SUM( IF( `status_order`=0, 1, 0 ) ) as is_not_pay,<br>&nbsp; &nbsp; &nbsp;COUNT(*) as all_count,<br>&nbsp; &nbsp; &nbsp;DATE_FORMAT(`date_time_order`, '%Y-%m') as year_month_</p>
+  <p>FROM</p>
+  <p>jaco_rolls_8.`orders`</p>
+  <p>WHERE</p>
+  <p>`date_time_order` BETWEEN "2020-01-02 00:00:00" AND "2025-03-09 23:59:59"</p>
+  <p>GROUP BY</p>
+  <p>year_month_</p>
+  <p>) as t;</p>
+</blockquote>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

@@ -1,0 +1,40 @@
+<!--
+title: Установка SSL сертификата
+description: Установка SSL сертификата
+published: true
+date: 2024-12-02T10:35:25.497Z
+tags: ssl
+editor: ckeditor
+dateCreated: 2024-12-02T10:35:23.313Z
+-->
+
+<ol>
+  <li>Зайти на сервер по SSH.</li>
+  <li>Открыть конфигурацию nginx, стандартный путь для конфигурации /etc/nginx/sites-available.</li>
+  <li>Желательно объединить корневой сертификат и сертификат для домен, что бы браузеры не выдавали предупреждения.</li>
+  <li>В конфигурации проверить/добавить/изменить путь к сертификату ssl_certificate и &nbsp;ssl_certificate_key.</li>
+</ol>
+<blockquote>
+  <p>server {</p>
+  <p>&nbsp; &nbsp; listen 443 ssl;</p>
+  <p>&nbsp; &nbsp; listen [::]:443 ssl;</p>
+  <p>&nbsp; &nbsp; server_name default_server;</p>
+  <p>&nbsp; &nbsp; ssl_certificate /etc/ssl/jacodriver.crt;</p>
+  <p>&nbsp; &nbsp; ssl_certificate_key /etc/ssl/jacodriver.key;</p>
+  <p>&nbsp; &nbsp; ssl_session_cache &nbsp; shared:SSL:10m;</p>
+  <p>&nbsp; &nbsp; ssl_session_timeout 10m;</p>
+  <p>}</p>
+</blockquote>
+<p>4. Заменить файлы сертификатов в папке /etc/ssl/</p>
+<p>5. Проверить работоспособность конфигурацию nginx&nbsp;</p>
+<blockquote>
+  <p>nginx -t</p>
+</blockquote>
+<p>6. Перезапустить nginx&nbsp;</p>
+<blockquote>
+  <p>systemctl restart nginx</p>
+</blockquote>
+<p>7. Дополнительно сертификат можно проверить сервисом <a href="https://www.sslshopper.com/ssl-checker.html">SSL checker</a></p>
+<p>8. Доп. информация доступна <a href="https://nginx.org/ru/docs/http/configuring_https_servers.html">тут</a>.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
